@@ -6,45 +6,29 @@ return {
             -- Common settings
             vim.lsp.config("*", {
                 capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                on_attach = function(client, bufnr)
+            })
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(args)
+                    local bufnr = args.buf
+                    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
                     -- Disable certain capabilities of ruff in favor of other LSP servers
                     if client.name == "ruff" then
                         client.server_capabilities.hoverProvider = false
                     end
                     -- Mappings.
                     -- See `:help vim.lsp.*` for documentation on any of the below functions
-                    local opts = { buffer = bufnr, silent = true }
-                    vim.keymap.set("n", "K", function()
-                        vim.lsp.buf.hover()
-                    end, opts)
-                    vim.keymap.set({ "n", "i" }, "<C-k>", function()
-                        vim.lsp.buf.signature_help()
-                    end, opts)
-                    vim.keymap.set("n", "gr", function()
-                        vim.lsp.buf.references()
-                    end, opts)
-                    vim.keymap.set("n", "gd", function()
-                        vim.lsp.buf.definition()
-                    end, opts)
-                    vim.keymap.set("n", "gi", function()
-                        vim.lsp.buf.incoming_calls()
-                    end, opts)
-                    vim.keymap.set("n", "go", function()
-                        vim.lsp.buf.incoming_calls()
-                    end, opts)
-                    vim.keymap.set("n", "gI", function()
-                        vim.lsp.buf.implementation()
-                    end, opts)
-                    vim.keymap.set("n", "gD", function()
-                        vim.lsp.buf.type_definition()
-                    end, opts)
-                    vim.keymap.set("n", "ga", function()
-                        vim.lsp.buf.code_action()
-                    end, opts)
-                    vim.keymap.set("n", "gh", function()
-                        vim.lsp.buf.typehierarchy()
-                    end, opts)
-                end,
+                    vim.keymap.set("n", "K",              vim.lsp.buf.hover,           { buffer = bufnr, silent = true, desc = "Displays hover information about the symbol under the cursor in a floating window." })
+                    vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help,  { buffer = bufnr, silent = true, desc = "Displays signature information about the symbol under the cursor in a floating window." })
+                    vim.keymap.set("n", "gr",             vim.lsp.buf.references,      { buffer = bufnr, silent = true, desc = "Lists all the references to the symbol under the cursor in the quickfix window." })
+                    vim.keymap.set("n", "gd",             vim.lsp.buf.definition,      { buffer = bufnr, silent = true, desc = "Jumps to the definition of the symbol under the cursor." })
+                    vim.keymap.set("n", "gi",             vim.lsp.buf.incoming_calls,  { buffer = bufnr, silent = true, desc = "Lists all the call sites of the symbol under the cursor in the quickfix window." })
+                    vim.keymap.set("n", "go",             vim.lsp.buf.outgoing_calls,  { buffer = bufnr, silent = true, desc = "Lists all the items that are called by the symbol under the cursor in the quickfix window." })
+                    vim.keymap.set("n", "gI",             vim.lsp.buf.implementation,  { buffer = bufnr, silent = true, desc = "Lists all the implementations for the symbol under the cursor in the quickfix window." })
+                    vim.keymap.set("n", "gD",             vim.lsp.buf.type_definition, { buffer = bufnr, silent = true, desc = "Jumps to the definition of the type of the symbol under the cursor." })
+                    vim.keymap.set("n", "ga",             vim.lsp.buf.code_action,     { buffer = bufnr, silent = true, desc = "Selects a code action available at cursor position." })
+                    vim.keymap.set("n", "gh",             vim.lsp.buf.typehierarchy,   { buffer = bufnr, silent = true, desc = "Lists all the subtypes or supertypes of the symbol under the cursor in the quickfix window." })
+                end
             })
 
             -- Servers
