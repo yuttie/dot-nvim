@@ -4,7 +4,6 @@ local plugins = {
     { "yuttie/snowy-vim" },
     { "yuttie/sublimetext-spacegray.vim" },
     -- Ordered by my preference:
-    { "nyoom-engineering/oxocarbon.nvim" },  -- oxocarbon
     {
         "ramojus/mellifluous.nvim",
         opts = {
