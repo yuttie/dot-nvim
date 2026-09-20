@@ -48,10 +48,9 @@ return {
             -- * sqlls:         npm install -g sql-language-server
             -- * texlab:        cargo install --git https://github.com/latex-lsp/texlab.git --locked
             -- * ts_ls:         npm install -g typescript typescript-language-server
-            --                  For adding Vue support to this server, also run `npm install -g @vue/typescript-plugin@2`
+            --                  For adding Vue support to this server, also run `npm install -g @vue/typescript-plugin`
             -- * vimls:         npm install -g vim-language-server
-            -- * vue_ls:        npm install -g @vue/language-server@2 (v3 dropped Vue 2 support, see https://github.com/vuejs/language-tools/pull/5365)
-            --                  https://github.com/vuejs/language-tools/blob/424e93769af297f636e865bbaa5d730d42c88e1c/extensions/vscode/README.md?plain=1#L19
+            -- * vue_ls:        npm install -g @vue/language-server
 
             local servers = {
                 "bashls",
