@@ -15,7 +15,7 @@ require("config.lazy")
 vim.cmd.syntax("off")
 
 -- Autocommand group
-vim.api.nvim_create_augroup("MyAutoCmds", { clear = true })
+local my_autocmds = vim.api.nvim_create_augroup("MyAutoCmds", { clear = true })
 
 vim.cmd([=[
 " Reset ibus-skk to the direct input mode when leave the insert mode
@@ -147,9 +147,13 @@ vim.keymap.set("v", "-", "<Plug>(expand_region_shrink)", {})
 
 -- {{{ Highlight a selection on yank }}}
 -- See https://neovim.io/doc/user/lua.html#lua-highlight.
-vim.cmd([=[
-autocmd MyAutoCmds TextYankPost * silent! lua vim.highlight.on_yank { timeout = 1000 }
-]=])
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = my_autocmds,
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank({ timeout = 1000 })
+    end,
+})
 
 -- {{{ voldikss/vim-floaterm
 vim.g.floaterm_width = 0.8
