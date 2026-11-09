@@ -4,18 +4,6 @@ return {
         version = "*",
         opts = {},
     },
-    {
-        "Bekaboo/dropbar.nvim",
-        -- optional, but required for fuzzy finder support
-        dependencies = {
-            "nvim-telescope/telescope-fzf-native.nvim",
-        },
-        opts = {},
-        lazy = false,
-        keys = {
-            { mode = "n", "<space>ss", function() require("dropbar.api").pick() end, desc = "Pick symbols in winbar" },
-        },
-    },
     "norcalli/nvim-colorizer.lua",
     "ntpeters/vim-better-whitespace",
     {
@@ -550,8 +538,64 @@ return {
                     lualine_z = { "location" },
                 },
                 tabline = {},
-                winbar = {},
-                inactive_winbar = {},
+                winbar = {
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_c = {
+                        {
+                            "filetype",
+                            icon_only = true,
+                            separator = "",
+                            padding = { left = 1, right = 0 },
+                        },
+                        {
+                            "filename",
+                            padding = { left = 0, right = 1 },
+                            file_status = true,
+                            newfile_status = false,
+                            path = 1,
+                            shorting_target = 40,
+                            symbols = {
+                                modified = "[+]",
+                                readonly = "[-]",
+                                unnamed = "[No Name]",
+                                newfile = "[New]",
+                            },
+                        },
+                    },
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {}
+                },
+                inactive_winbar = {
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_c = {
+                        {
+                            "filetype",
+                            icon_only = true,
+                            separator = "",
+                            padding = { left = 1, right = 0 },
+                        },
+                        {
+                            "filename",
+                            padding = { left = 0, right = 1 },
+                            file_status = true,
+                            newfile_status = false,
+                            path = 1,
+                            shorting_target = 40,
+                            symbols = {
+                                modified = "[+]",
+                                readonly = "[-]",
+                                unnamed = "[No Name]",
+                                newfile = "[New]",
+                            },
+                        },
+                    },
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {}
+                },
                 extensions = {},
             })
         end,
